@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Magical Letter ✨</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Sparkle */
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, #fff, #ffd6ff, #a64dff);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* Letter flap */
+    #letter-container {
+      perspective: 1000px;
+    }
+
+    .letter-envelope {
+      width: 320px;
+      height: 200px;
+      background: white;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .flap {
+      width: 100%;
+      height: 50%;
+      background: #a64dff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top;
+      z-index: 2;
+    }
+
+    .letter-content {
+      display: none;
+      margin-top: 20px;
+      max-width: 600px;
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 15px;
+      color: #4a148c;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Memories modal */
+    #memoriesModal {
+      display: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen text-center relative">
+
+  <h1 class="text-4xl font-bold mb-8">💌 Happy Birthday, Sonu! 💌</h1>
+
+  <!-- Letter Container -->
+  <div id="letter-container" class="relative">
+    <div class="letter-envelope" id="letter">
+      <div class="flap" id="flap"></div>
+      <p class="absolute bottom-4 w-full text-center font-bold text-lg">✉️ Click to open the letter!</p>
+    </div>
+  </div>
+
+  <!-- Hidden message inside -->
+  <div id="message" class="letter-content">
+    <h2 class="text-2xl font-bold mb-3">My Dear 💌</h2>
+    <p>Happy birthday, Sonu!! Hopefully this serves as a worthy birthday gift for my best friend. I miss you terribly and would do anything to go back to our 12th grade days where I got to sit next to you in class and bunk classes. I miss those days where we spent our time together in that library as well. I miss how we used to sit and laugh with no care in the world. Remember, I'll always keep my door open for you, waiting for you. I love you so much.
+     </p>
+    <p style="margin-top:20px; font-style:italic;">– Suhani 💜</p>
+  </div>
+
+  <!-- Memories button -->
+  <button id="memoriesBtn" class="fixed bottom-6 right-6 bg-pink-500 text-white px-4 py-3 rounded-full shadow-xl hover:scale-110 transition">
+    📸 Click this for memories
+  </button>
+
+  <!-- Memories Modal -->
+  <div id="memoriesModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-6 relative max-w-lg w-full">
+      <button id="closeMemories" class="absolute top-2 right-2 text-gray-500 hover:text-red-500">✖</button>
+      <h2 class="text-xl font-bold mb-4">Memories ✨</h2>
+
+      <!-- Swiper Carousel -->
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <!-- Replace these 5 images -->
+          <div class="swiper-slide flex flex-col items-center">
+            <img src="pic1.jpg" class="rounded-xl shadow-md" />
+            <p class="mt-2 text-sm text-gray-600">Gosh, i remember this day clearly. It was perfect.</p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <img src="pic2.jpg" class="rounded-xl shadow-md" />
+            <p class="mt-2 text-sm text-gray-600">This day was actually fun.</p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <img src="pic3.jpg" class="rounded-xl shadow-md" />
+            <p class="mt-2 text-sm text-gray-600">I won't even add a caption, you remember this better than i do. </p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <img src="pic4.jpg" class="rounded-xl shadow-md" />
+            <p class="mt-2 text-sm text-gray-600">I remember how we had fun at the lake, haha~ </p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <img src="pic5.jpg" class="rounded-xl shadow-md" />
+            <p class="mt-2 text-sm text-gray-600">This day was literally perfect.</p>
+          </div>
+
+          <!-- Replace these 5 videos -->
+          <div class="swiper-slide flex flex-col items-center">
+            <video controls class="rounded-xl shadow-md w-full">
+              <source src="vid1.mp4" type="video/mp4">
+            </video>
+            <p class="mt-2 text-sm text-gray-600">This one made me smile for some reason. </p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <video controls class="rounded-xl shadow-md w-full">
+              <source src="vid2.mp4" type="video/mp4">
+            </video>
+            <p class="mt-2 text-sm text-gray-600">I miss us.</p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <video controls class="rounded-xl shadow-md w-full">
+              <source src="vid3.mp4" type="video/mp4">
+            </video>
+            <p class="mt-2 text-sm text-gray-600">I missed this, ngl watching this made me cry. </p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <video controls class="rounded-xl shadow-md w-full">
+              <source src="vid4.mp4" type="video/mp4">
+            </video>
+            <p class="mt-2 text-sm text-gray-600">This was honestly funny for me, couldn't resist adding it hehe</p>
+          </div>
+          <div class="swiper-slide flex flex-col items-center">
+            <video controls class="rounded-xl shadow-md w-full">
+              <source src="vid5.mp4" type="video/mp4">
+            </video>
+            <p class="mt-2 text-sm text-gray-600">This was diabolicallllll</p>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sparkles container -->
+  <div id="sparkles"></div>
+
+  <script>
+    const letter = document.getElementById("letter");
+    const flap = document.getElementById("flap");
+    const message = document.getElementById("message");
+    const sparklesContainer = document.getElementById("sparkles");
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = x + "px";
+      sparkle.style.top = y + "px";
+      sparklesContainer.appendChild(sparkle);
+
+      gsap.fromTo(sparkle, {opacity: 1, scale: 0}, {
+        opacity: 0,
+        scale: 2.5,
+        duration: 1.5,
+        x: (Math.random() - 0.5) * 200,
+        y: (Math.random() - 0.5) * 200,
+        onComplete: () => sparkle.remove()
+      });
+    }
+
+    let opened = false;
+    letter.addEventListener("click", (e) => {
+      if (!opened) {
+        gsap.to(flap, {rotationX: -180, duration: 1, ease:"power2.inOut", onComplete: () => {
+          message.style.display = "block";
+        }});
+        // huge sparkles
+        for (let i = 0; i < 40; i++) {
+          createSparkle(e.clientX, e.clientY);
+        }
+        opened = true;
+      }
+    });
+
+    // Memories modal
+    const memoriesBtn = document.getElementById("memoriesBtn");
+    const memoriesModal = document.getElementById("memoriesModal");
+    const closeMemories = document.getElementById("closeMemories");
+
+    memoriesBtn.addEventListener("click", () => {
+      memoriesModal.style.display = "flex";
+      new Swiper(".mySwiper", {
+        pagination: { el: ".swiper-pagination" },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        loop: true
+      });
+    });
+
+    closeMemories.addEventListener("click", () => {
+      memoriesModal.style.display = "none";
+    });
+  </script>
+</body>
+</html>
